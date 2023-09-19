@@ -5,13 +5,16 @@ However, it has been edited by Jonathon Luiten to also render 'depth' as well as
 
 This is needed for Jonathon's Dynamic 3D Gaussians work which can be found here: http://dynamic3dgaussians.github.io
 
-By default, the depth is calculated as 'mean depth', but there is commented out code which also calculates 'median depth' if preferred.
+By default, the depth is calculated as 'median depth', where the depth is the depth of the Gaussian center which causes the accumulated rays transmittance to drop below 0.5.
+If a ray doesn't reach this threshold it is given a default depth of 15. This median depth avoids the depth floaters around depth boundaries that 'mean depth' would give.
+If 'mean depth' is preffered, there is commented out code which also calculates 'mean depth'.
+See lines 307-308 and 363-372 of cuda_rasterizer/forward.cu.
 
 Note that the backward pass for the depth has not been implemented, so it won't work for training with depth ground-truth.
 
 Note that the code in this repo follows the (non commercial) license of Inria as laid out in LICENSE.md
 
-If you're using this as part of the Dynamic Gaussian code, just follow the installation instruction for that codebase.
+If you're using this as part of the Dynamic 3D Gaussians code, just follow the installation instruction for that codebase.
 
 To install this stand-alone I have been doing the following (although I don't think this is necessarily the best way):
 ```
